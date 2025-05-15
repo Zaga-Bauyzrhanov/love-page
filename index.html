@@ -6,7 +6,7 @@
   <title>For My Love</title>
   <style>
     body {
-      min-height: 200vh; /* Добавлено для возможности прокрутки */
+      min-height: 200vh;
       background: linear-gradient(120deg, #fff0f6 0%, #ffe4ec 100%);
       margin: 0;
       font-family: 'Segoe Script', cursive, sans-serif;
@@ -80,7 +80,6 @@
       }
     }
 
-    /* Letter popup */
     #love-letter {
       position: fixed;
       bottom: 50px;
@@ -105,6 +104,23 @@
       visibility: visible;
       transform: translateX(-50%) translateY(-10px);
     }
+
+    #play-music-btn {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ffb6c1;
+      z-index: 10001;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -113,14 +129,16 @@
   <p>You make my world sparkle and my heart flutter. This page is just for you. 💖</p>
   <img src="photo.jpg" alt="Our Special Moment" />
 
-  <audio autoplay loop>
+  <!-- Музыка -->
+  <audio id="bg-music" loop>
     <source src="music.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
+  <button id="play-music-btn">▶ Включить музыку</button>
+
   <div class="glowing-heart"></div>
 
-  <!-- Love Letter -->
   <div id="love-letter">
     <div class="letter-content">
       <p>
@@ -132,9 +150,8 @@
       </p>
     </div>
   </div>
-  
 
-  <!-- Falling petals -->
+  <!-- Падающие лепестки -->
   <script>
     function createCherryBlossom() {
       const petal = document.createElement('div');
@@ -153,7 +170,7 @@
     setInterval(createCherryBlossom, 300);
   </script>
 
-  <!-- Scroll trigger for love letter -->
+  <!-- Появление письма -->
   <script>
     window.addEventListener('scroll', () => {
       const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
@@ -166,6 +183,24 @@
     });
   </script>
 
+  <!-- Автовоспроизведение музыки -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const music = document.getElementById('bg-music');
+      const btn = document.getElementById('play-music-btn');
+
+      music.play().catch(() => {
+        btn.style.display = 'block';
+      });
+
+      btn.addEventListener('click', () => {
+        music.play();
+        btn.style.display = 'none';
+      });
+    });
+  </script>
+
+  <!-- Эффект курсора -->
   <script src="romantic-cursor.js"></script>
 </body>
 </html>
